@@ -29,10 +29,25 @@ async function getRandomUser() {
 //Add new obj to data array
 function addData(obj) {
     data.push(obj);
+
+    updateDOM();
 }
 
+function updateDOM(providedData = data) {
+    // Clear main div
+    main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
+    providedData.forEach(item => {
+        const heading = document.createElement('div');
+        heading.classList.add('person');
+        heading.innerHTML = `<strong>${item.name}</strong> ${formatMoney(item.money)}`;
+        main.appendChild(heading);
+    })
+}
+
+// Format number as money
+function formatMoney(number) {
+    return '$' + (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
 
 // Event Listerners 
-add_user.addEventListener('click', () => {
-
-});
+add_user.addEventListener('click', getRandomUser);
