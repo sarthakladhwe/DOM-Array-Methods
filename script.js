@@ -2,7 +2,7 @@ const main = document.getElementById('main');
 const add_user = document.getElementById('add_user');
 const double = document.getElementById('double');
 const show_millionaires = document.getElementById('show_millionaires');
-const sort = document.getElementById('sort');
+const sortByMoney = document.getElementById('sort');
 const calculate_wealth = document.getElementById('calculate_wealth');
 
 let data = [];
@@ -24,6 +24,20 @@ async function getRandomUser() {
     }
 
     addData(newUser);
+}
+
+function doubleMoney() {
+    data = data.map(user => {
+        return {...user, money: user.money * 2}
+    });
+
+    updateDOM();
+}
+
+function richestFirst() {
+    data = data.sort((a, b) => b.money - a.money);
+
+    updateDOM();
 }
 
 //Add new obj to data array
@@ -51,3 +65,6 @@ function formatMoney(number) {
 
 // Event Listerners 
 add_user.addEventListener('click', getRandomUser);
+double.addEventListener('click', doubleMoney);
+sortByMoney.addEventListener('click', richestFirst);
+
